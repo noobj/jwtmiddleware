@@ -7,7 +7,7 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/golang-jwt/jwt"
-	"github.com/noobj/lambda-jwt-middleware/internal/types"
+	"github.com/noobj/jwtmiddleware/internal/types"
 )
 
 func GenerateErrorResponse[T types.ApiResponse](statusCode int, messages ...string) (T, error) {
