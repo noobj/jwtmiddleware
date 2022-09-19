@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/aws/aws-lambda-go v1.34.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/golang/mock v1.6.0
 	github.com/joho/godotenv v1.4.0
 	github.com/onsi/ginkgo/v2 v2.1.6
 )

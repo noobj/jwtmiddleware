@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/joho/godotenv"
 	"github.com/noobj/jwtmiddleware/internal/helper"
-	"github.com/noobj/jwtmiddleware/internal/types"
+	"github.com/noobj/jwtmiddleware/types"
 )
 
 func Handle[T types.ApiRequest, R types.ApiResponse](f types.HandlerFunc[T, R], getUserFromPayload func(interface{}) (interface{}, error)) types.HandlerFunc[T, R] {
