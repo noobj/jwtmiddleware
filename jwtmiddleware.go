@@ -11,7 +11,7 @@ import (
 	"github.com/noobj/jwtmiddleware/types"
 )
 
-func Handle[T types.ApiRequest, R types.ApiResponse](f types.HandlerFunc[T, R], getUserFromPayload func(interface{}) (interface{}, error)) types.HandlerFunc[T, R] {
+func Handle[T types.ApiRequest, R types.ApiResponse](f types.HandlerFunc[T, R], payloadHandler func(context.Context, interface{}) (context.Context, error)) types.HandlerFunc[T, R] {
 	return func(ctx context.Context, r T) (R, error) {
 		v2Request, ok := any(r).(events.APIGatewayV2HTTPRequest)
 		if !ok {
@@ -30,13 +30,11 @@ func Handle[T types.ApiRequest, R types.ApiResponse](f types.HandlerFunc[T, R], 
 		if err != nil {
 			return helper.GenerateErrorResponse[R](401)
 		}
-		user, err := getUserFromPayload(payload)
+		ctx, err = payloadHandler(ctx, payload)
 		if err != nil {
 			return helper.GenerateErrorResponse[R](401)
 		}
 
-		ctxWithUser := context.WithValue(ctx, helper.ContextKeyUser, user)
-
-		return f(ctxWithUser, any(v2Request).(T))
+		return f(ctx, any(v2Request).(T))
 	}
 }

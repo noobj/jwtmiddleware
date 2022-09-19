@@ -14,8 +14,10 @@ import (
 var _ = Describe("JwtAuth", func() {
 	var fakeRequest events.APIGatewayV2HTTPRequest
 
-	var fakeGetUserFromPayload = func(payload interface{}) (interface{}, error) {
-		return payload, nil
+	var fakeGetUserFromPayload = func(ctx context.Context, payload interface{}) (context.Context, error) {
+		ctx = context.WithValue(ctx, helper.ContextKeyUser, 1234)
+
+		return ctx, nil
 	}
 
 	BeforeEach(func() {
