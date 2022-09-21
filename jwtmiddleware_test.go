@@ -30,7 +30,7 @@ var _ = Describe("JwtAuth", func() {
 
 		It("should contains user in context when passing eligible cookie", func() {
 			fakeHandler := func(ctx context.Context, request events.APIGatewayV2HTTPRequest) (events.APIGatewayProxyResponse, error) {
-				user := int(ctx.Value(helper.ContextKeyUser).(float64))
+				user := ctx.Value(helper.ContextKeyUser).(int)
 				Expect(user).To(Equal(1234))
 
 				return events.APIGatewayProxyResponse{}, nil
