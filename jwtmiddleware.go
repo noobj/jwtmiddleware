@@ -11,6 +11,9 @@ import (
 	"github.com/noobj/jwtmiddleware/types"
 )
 
+// Handle will extract the payload from cookie named access_token.
+// It then pass the payload to the payloadHandler you assign.
+// Finally, it calls and returns the result of the handler you define.
 func Handle[T types.ApiRequest, R types.ApiResponse](f types.HandlerFunc[T, R], payloadHandler func(context.Context, interface{}) (context.Context, error)) types.HandlerFunc[T, R] {
 	return func(ctx context.Context, r T) (R, error) {
 		v2Request, ok := any(r).(events.APIGatewayV2HTTPRequest)
