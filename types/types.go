@@ -12,7 +12,7 @@ type ApiResponse interface {
 }
 
 type ApiRequest interface {
-	events.APIGatewayProxyRequest | events.APIGatewayV2HTTPRequest
+	events.APIGatewayProxyRequest | events.APIGatewayV2HTTPRequest | events.SQSEvent
 }
 
 type JwtToken struct {
